@@ -8,4 +8,5 @@ dependencies = [
     "croniter>=6.2.2",
     "python-dateutil>=2.9.0.post0",
     "recurrent>=0.4.1",
+    "webcolors>=25.10.0",
 ]
