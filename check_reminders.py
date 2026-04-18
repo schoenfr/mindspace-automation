@@ -59,7 +59,7 @@ def process_file(path: Path, now: datetime) -> None:
                     frontmatter.write(path, fields, body)
             return
 
-        notifier.fire("Recurring reminder", message or recur_str, sound, _vault_rel(path), color)
+        notifier.fire(path.stem, message or recur_str, sound, _vault_rel(path), color)
         logging.info(f"Fired recurring reminder: {path.name}")
 
         fields["last_reminded_at"] = now.strftime(config.DATETIME_FMT)
@@ -81,7 +81,7 @@ def process_file(path: Path, now: datetime) -> None:
     if frontmatter.parse_dt(last_reminded_str) is not None:
         return  # already fired
 
-    notifier.fire("Reminder", message or remind_at_str, sound, _vault_rel(path), color)
+    notifier.fire(path.stem, message or remind_at_str, sound, _vault_rel(path), color)
     logging.info(f"Fired one-shot reminder: {path.name}")
 
     fields["last_reminded_at"] = now.strftime(config.DATETIME_FMT)
