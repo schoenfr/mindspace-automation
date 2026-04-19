@@ -13,6 +13,7 @@ from pathlib import Path
 import config
 import frontmatter
 import notifier
+import overview
 import recurrence
 
 
@@ -110,3 +111,5 @@ if __name__ == "__main__":
             process_file(path, now)
         except Exception as e:
             logging.error(f"Error processing {path.name}: {e}")
+
+    overview.write_overview(md_files, now)
