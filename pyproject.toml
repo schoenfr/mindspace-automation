@@ -10,3 +10,12 @@ dependencies = [
     "recurrent>=0.4.1",
     "webcolors>=25.10.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
