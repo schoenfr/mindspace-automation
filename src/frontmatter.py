@@ -23,8 +23,10 @@ def write(path: Path, fields: dict, body: str) -> None:
     path.write_text(f"---\n{lines}\n---\n{body}\n", encoding="utf-8")
 
 
-def parse_dt(value: str) -> datetime | None:
-    """Parse a datetime string. Returns None on failure."""
+def parse_dt(value: str | None) -> datetime | None:
+    """Parse a datetime string. Returns None if value is None or unparseable."""
+    if value is None:
+        return None
     try:
         return datetime.strptime(value.strip(), DATETIME_FMT)
     except ValueError:

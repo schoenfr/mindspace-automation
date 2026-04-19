@@ -55,7 +55,7 @@ def process_file(path: Path, now: datetime) -> overview.ReminderEntry | None:
         if not most_recent:
             return None  # pattern hasn't had a past occurrence yet
 
-        last_reminded = frontmatter.parse_dt(last_reminded_str) if last_reminded_str else None
+        last_reminded = frontmatter.parse_dt(last_reminded_str)
         should_fire   = last_reminded is None or last_reminded < most_recent
 
         if should_fire:

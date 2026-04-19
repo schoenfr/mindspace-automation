@@ -33,6 +33,21 @@ def vault_root(tmp_path, monkeypatch):
 
 # ── Recurring: remind_at is ignored ──────────────────────────────────────────
 
+class TestOneShotNoLastReminded:
+    def test_does_not_crash_when_last_reminded_at_missing(self, tmp_path):
+        """Regression: parse_dt(None) must not raise AttributeError."""
+        path = _write_note(tmp_path, {
+            "remind_at": "2026-04-19 02:39",
+            # no last_reminded_at
+        })
+        now = datetime(2026, 4, 19, 2, 41)  # past the remind_at
+
+        with patch("check_reminders.notifier"):
+            entry = check_reminders.process_file(path, now)  # must not raise
+
+        assert entry is None  # fired and done
+
+
 class TestRecurringRemindAt:
     def test_stale_remind_at_does_not_block_firing(self, tmp_path):
         """A stale remind_at should have no effect on whether the reminder fires."""
