@@ -58,28 +58,19 @@ def process_file(path: Path, now: datetime) -> overview.ReminderEntry | None:
         last_reminded = frontmatter.parse_dt(last_reminded_str) if last_reminded_str else None
         should_fire   = last_reminded is None or last_reminded < most_recent
 
-        if not should_fire:
-            if not remind_at_str:
-                next_occ = recurrence.next_occurrence_after(rrule, now)
-                if next_occ:
-                    fields["remind_at"] = next_occ.strftime(config.DATETIME_FMT)
-                    frontmatter.write(path, fields, body)
-            # Fall through to build entry from existing remind_at
-        else:
+        if should_fire:
             notifier.fire(path.stem, message or recur_str, sound, _vault_rel(path), color)
             logging.info(f"Fired recurring reminder: {path.name}")
-
             fields["last_reminded_at"] = now.strftime(config.DATETIME_FMT)
-            next_occ = recurrence.next_occurrence_after(rrule, now)
-            if next_occ:
-                fields["remind_at"] = next_occ.strftime(config.DATETIME_FMT)
             frontmatter.write(path, fields, body)
 
-        remind_at = frontmatter.parse_dt(fields.get("remind_at", ""))
-        if not remind_at:
+        # remind_at is ignored for recurring reminders — next occurrence is
+        # always computed live from the recur pattern so it never goes stale.
+        next_occ = recurrence.next_occurrence_after(rrule, now)
+        if not next_occ:
             return None
         return overview.ReminderEntry(
-            remind_at=remind_at,
+            remind_at=next_occ,
             title=path.stem,
             message=message,
             recur=recur_str,
