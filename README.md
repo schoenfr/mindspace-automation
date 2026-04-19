@@ -32,7 +32,7 @@ color: steelblue
 Book working hours into PMS
 ```
 
-Both can live anywhere in your vault. The script writes `last_reminded_at` and `remind_at` (next occurrence) back into the file after firing.
+Both can live anywhere in your vault. After firing, the script writes `last_reminded_at` back into the file. For recurring reminders, `remind_at` is ignored — the next occurrence is always computed live from the `recur` pattern, so changing `recur` takes effect immediately without any cleanup.
 
 `color` accepts any HTML color name. `sound` accepts any macOS system sound (Basso, Blow, Bottle, Frog, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink). Both default to `purple` / `Submarine` if omitted. Use `sound: none` to suppress sound.
 
@@ -50,7 +50,7 @@ cd mindspace-automation
 uv sync
 ```
 
-Edit `config.py` to point to your vault:
+Edit `src/config.py` to point to your vault:
 
 ```python
 VAULT_ROOT = Path.home() / "your" / "vault" / "path"

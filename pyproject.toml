@@ -1,7 +1,7 @@
 [project]
 name = "automation"
 version = "0.1.0"
-description = "Add your description here"
+description = "Obsidian-vault-native reminder system for macOS"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
