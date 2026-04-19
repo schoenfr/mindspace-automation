@@ -10,11 +10,11 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-import config
-import frontmatter
-import notifier
-import overview
-import recurrence
+import src.config as config
+import src.frontmatter as frontmatter
+import src.notifier as notifier
+import src.overview as overview
+import src.recurrence as recurrence
 
 
 def _vault_rel(path: Path) -> str:

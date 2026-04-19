@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 
-from config import DATETIME_FMT
+from .config import DATETIME_FMT
 
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n?(.*)", re.DOTALL)
 FIELD_RE       = re.compile(r"^(?P<key>\w+):\s*(?P<value>.+)$", re.MULTILINE)

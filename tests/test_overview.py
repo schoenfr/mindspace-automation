@@ -7,7 +7,7 @@ from datetime import datetime
 
 import pytest
 
-from overview import ReminderEntry, _bucket, _format_entry
+from src.overview import ReminderEntry, _bucket, _format_entry
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────

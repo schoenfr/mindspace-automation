@@ -1,7 +1,7 @@
 import subprocess
 
-import icons
-from config import NOTIFIER, VAULT_NAME
+from . import icons
+from .config import NOTIFIER, VAULT_NAME
 
 
 def fire(subtitle: str, message: str, sound: str, vault_relative_path: str | None = None, color: str | None = None) -> None:
